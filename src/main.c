@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:15:55 by jose              #+#    #+#             */
-/*   Updated: 2023/02/07 15:56:15 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/07 16:02:03 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main (int ac, char **av, char **envp)
 		ft_error(BAD_PARAMETERS, NULL);
 	if (access(av[1], R_OK))
 		ft_error(FILE_CANT_BE_READ, av[1]);
-	if (access(av[ac-1]), R_OK | W_OK)
+	if (access(av[ac-1], R_OK | W_OK))
 		ft_create_outfile(av[ac-1]);
 	return (0);
 }

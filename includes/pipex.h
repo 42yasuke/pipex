@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/07 15:53:40 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/07 16:00:48 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	ft_error (int err, char *infile);
 
 /*	cmd.c	*/
 void	ft_create_outfile(char *outfile);
+void	ft_remove_outfile(char *outfile);
 
 /*	free.c	*/
+void ft_free_all(char **str);
 
 #endif
