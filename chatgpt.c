@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 21:44:03 by jralph            #+#    #+#             */
-/*   Updated: 2023/01/26 11:26:48 by jose             ###   ########.fr       */
+/*   Updated: 2023/01/31 19:14:18 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 
-int main() {
+int main(int ac, char **av, char **envp) {
 	int pipefd[2];
 	pipe(pipefd);
 
@@ -26,14 +26,14 @@ int main() {
 		dup2(pipefd[1], 1); // Redirige la sortie standard vers l'extrémité d'écriture du pipe
 
 		char *ls_args[] = {"ls", NULL};
-		execve("/bin/ls", ls_args, NULL);
+		execve("/bin/ls", ls_args, envp);
 	} else {
 		// Processus père
 		close(pipefd[1]); // Ferme l'extrémité d'écriture du pipe
 		dup2(pipefd[0], 0); // Redirige l'entrée standard vers l'extrémité de lecture du pipe
 
 		char *wc_args[] = {"wc", "-l", NULL};
-		execve("/usr/bin/wc", wc_args, NULL);
+		execve("/usr/bin/wc", wc_args, envp);
 		int status;
 		waitpid(pid, &status, 0);
 	}

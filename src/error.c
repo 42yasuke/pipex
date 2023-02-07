@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 01:15:55 by jose              #+#    #+#             */
-/*   Updated: 2023/01/31 17:52:41 by jose             ###   ########.fr       */
+/*   Created: 2023/02/07 13:20:02 by jose              #+#    #+#             */
+/*   Updated: 2023/02/07 15:54:17 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*
-
-1. verifier que mes fichiers existes
-2. si outfile existe on doit verfier les droits
-3. si outfile n'existe pas on doit creer outfile et donner les droits necessairesss
-4. verifier les commandes, est il possible de verifier une commande sans devoir l'executer ?
-
-*/
-
-int	main (int ac, char **av, char **env)
+void	ft_error (int err, char *infile)
 {
-	if (ac != 5)
-		perror ("BAD PARAMETERS");
-	return (0);
+	if (err == 1)
+		ft_printf("BAD PARAMETERS\n");
+	if(err == 2)
+		ft_printf("%s can't be read: %s\n", infile, strerror(errno));
+	if (err == 3)
+		ft_printf("%s: %s\n", infile, strerror(errno));
+	if (err == 4)
+		ft_printf("%s could not be deleted: %s\n", infile, strerror(errno));
+	if (err == 5)
+		ft_printf("%s could not be created: %s\n", infile, strerror(errno));
+	exit(0);
 }
