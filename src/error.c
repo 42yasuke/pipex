@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:20:02 by jose              #+#    #+#             */
-/*   Updated: 2023/02/07 15:54:17 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/08 23:32:49 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 void	ft_error (int err, char *infile)
 {
-	if (err == 1)
+	if (err == BAD_PARAMETERS)
 		ft_printf("BAD PARAMETERS\n");
-	if(err == 2)
+	if(err == FILE_CANT_BE_READ)
 		ft_printf("%s can't be read: %s\n", infile, strerror(errno));
-	if (err == 3)
+	if (err == CMD_DOESNT_EXIST)
 		ft_printf("%s: %s\n", infile, strerror(errno));
-	if (err == 4)
-		ft_printf("%s could not be deleted: %s\n", infile, strerror(errno));
-	if (err == 5)
+	if (err == CAN_NOT_CREATE_OUTFILE)
 		ft_printf("%s could not be created: %s\n", infile, strerror(errno));
-	exit(0);
+	if (err == CMD_NOT_FOUND)
+		ft_printf("%s : %s\n", infile, strerror(errno));
+	if (err == FORK_FAILED)
+		ft_printf("%s : %s\n", infile, strerror(errno));
+	if (err == PIPE_FAILED)
+		ft_printf("%s : %s\n", infile, strerror(errno));
+	exit(EXIT_FAILURE);
 }

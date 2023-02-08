@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:39:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/07 15:43:58 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 00:24:23 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,9 @@ void ft_free_all(char **str)
 	}
 	free(str);
 	str = NULL;
+}
+
+void	ft_free_cmd(t_cmd *cmd_list)
+{
+	
 }
