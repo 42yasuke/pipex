@@ -6,11 +6,47 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 12:20:25 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 14:31:55 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static char	*ft_get_path2(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strncmp(envp[i], "PATH", ft_strlen("PATH")))
+		i++;
+	return (envp[i]);
+}
+
+static char	*ft_get_path(char *cmd, char **envp)
+{
+	char	*path_envp;
+	char	**mypaths;
+	int		i;
+	char	*ret;
+	char	*cmd_to_test;
+
+	path_envp = ft_get_path2(envp);
+	mypaths = ft_split(path_envp, ':');
+	i = 1;
+	ret = NULL;
+	while (mypaths[i])
+	{
+		cmd_to_test = ft_strjoin("/", cmd);
+		ret = ft_strjoin(mypaths[i], cmd_to_test);
+		free(cmd_to_test);
+		if (!access(ret, X_OK))
+			break ;
+		free(ret);
+		ret = NULL;
+		i++;
+	}
+	return (ft_free_all(mypaths), ret);
+}
 
 t_cmd	*ft_initialise_cmd(char **envp)
 {
@@ -33,9 +69,9 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 	tmp = cmd_list;
 	while (tmp->next)
 		tmp = tmp->next;
-	if (!tmp->path)
+	if (tmp->path)
 	{
-		tmp->next = malloc (*tmp);
+		tmp->next = malloc (sizeof(*tmp));
 		if (!tmp)
 		{
 			ft_free_cmd(cmd_list);
@@ -49,31 +85,4 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
 	tmp->next = NULL;
 	tmp->envp = cmd_list->envp;
-}
-
-static char	*ft_get_path(char *cmd, char **envp)
-{
-	char	*PATH_envp;
-	char	**mypaths;
-	int		i;
-	char	*ret;
-	char	*cmd_to_test;
-
-	PATH_envp = ft_strnstr(envp, "PATH", ft_strlen("PATH"));
-	mypaths = ft_split(PATH_envp, ':');
-	i = 1;
-	free(PATH_envp);
-	ret = NULL;
-	while (mypaths[i])
-	{
-		cmd_to_test = ft_strjoin("/", cmd);
-		ret = ft_strjoin(mypaths[i], cmd_to_test);
-		free(cmd_to_test);
-		if (!access(ret, X_OK))
-			break;
-		free(ret);
-		ret = NULL;
-		i++;
-	}
-	return (ret);
 }

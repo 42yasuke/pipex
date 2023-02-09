@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:39:29 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 12:43:10 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 13:13:15 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	pipex1(t_cmd *cmd, t_cmd *cmd_list)
 	if (!pid)
 	{
 		close(pipefd[0]);
-		dup2(pipfd[1], STDOUT_FILENO);
+		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error2(CMD_NOT_EXCUTED, cmd_list);
+		ft_error2(CMD_NOT_EXECUTED, cmd, cmd_list);
 	}
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
@@ -46,7 +46,7 @@ static void	pipex2(t_cmd *cmd, t_cmd *cmd_list)
 	if (!pid)
 	{
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error2(CMD_NOT_EXCUTED, cmd_list, cmd_list);
+		ft_error2(CMD_NOT_EXECUTED, cmd, cmd_list);
 	}
 	waitpid(pid, NULL, 0);
 }
