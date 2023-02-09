@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 00:24:40 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 03:08:14 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define CMD_NOT_FOUND 5
 # define FORK_FAILED 6
 # define PIPE_FAILED 7
+# define MALLOC_FAILLED 8
 
 typedef struct s_cmd
 {
@@ -43,6 +44,9 @@ typedef struct s_cmd
 void	ft_error(int err, char *infile);
 
 /*	cmd.c	*/
+t_cmd	*ft_initialise_cmd(char **envp);
+void	ft_add_cmd(t_cmd *cmd_list, char *cmd);
+char	*ft_get_path(char *cmd, char **envp);
 
 /*	free.c	*/
 void	ft_free_all(char **str);

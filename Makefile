@@ -6,7 +6,7 @@
 #    By: jose <jose@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/02/07 15:42:25 by jose             ###   ########.fr        #
+#    Updated: 2023/02/09 03:09:44 by jose             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ RM = rm -f
 C_FILES =	main.c \
 			error.c \
 			free.c \
-			cmd.c
+			cmd.c \
+			pipex.c
 
 SRC = $(addprefix src/, $(C_FILES))
 

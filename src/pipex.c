@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:39:29 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 00:23:51 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 03:03:40 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,11 @@ void	pipex_manager(int fd2, int ac, char **av, char **envp)
 	t_cmd	*cmd_list;
 	t_cmd	*tmp;
 
-	i = 1;
-	/*
-
-	obtetir le chamin de chaque comande
-	faire une liste chainee des commandes
-
-	*/
+	i = 2;
+	cmd_list = ft_initialise_cmd(envp);
 	while (i < ac - 1)
 	{
-		
+		ft_add_cmd(cmd_list, av[i]);
 		i++;
 	}
 	tmp = cmd_list;

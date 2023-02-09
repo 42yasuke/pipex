@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:20:02 by jose              #+#    #+#             */
-/*   Updated: 2023/02/08 23:32:49 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 02:24:35 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_error (int err, char *infile)
 	if (err == FORK_FAILED)
 		ft_printf("%s : %s\n", infile, strerror(errno));
 	if (err == PIPE_FAILED)
+		ft_printf("%s : %s\n", infile, strerror(errno));
+	if (err == MALLOC_FAILLED)
 		ft_printf("%s : %s\n", infile, strerror(errno));
 	exit(EXIT_FAILURE);
 }
