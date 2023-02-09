@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 03:08:14 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 11:09:22 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	ft_error(int err, char *infile);
 /*	cmd.c	*/
 t_cmd	*ft_initialise_cmd(char **envp);
 void	ft_add_cmd(t_cmd *cmd_list, char *cmd);
-char	*ft_get_path(char *cmd, char **envp);
 
 /*	free.c	*/
 void	ft_free_all(char **str);
@@ -54,7 +53,5 @@ void	ft_free_cmd(t_cmd *cmd_list);
 
 /*	pipex.c	*/
 void	pipex_manager(int fd2, int ac, char **av, char **envp);
-void	pipex1(t_cmd *cmd);
-void	pipex2(t_cmd *cmd);
 
 #endif

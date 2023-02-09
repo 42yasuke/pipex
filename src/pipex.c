@@ -6,37 +6,13 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:39:29 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 03:03:40 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 11:01:50 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex_manager(int fd2, int ac, char **av, char **envp)
-{
-	int		i;
-	t_cmd	*cmd_list;
-	t_cmd	*tmp;
-
-	i = 2;
-	cmd_list = ft_initialise_cmd(envp);
-	while (i < ac - 1)
-	{
-		ft_add_cmd(cmd_list, av[i]);
-		i++;
-	}
-	tmp = cmd_list;
-	while (tmp->next != NULL)
-	{
-		pipex1(tmp);
-		tmp = tmp->next;
-	}
-	dup2(fd2, STDOUT_FILENO);
-	pipex2(tmp);
-	ft_free_cmd(cmd_list);
-}
-
-void	pipex1(t_cmd *cmd)
+static void	pipex1(t_cmd *cmd)
 {
 	int	pipefd[2];
 	int	pid;
@@ -60,7 +36,7 @@ void	pipex1(t_cmd *cmd)
 	waitpid(pid, NULL, 0);
 }
 
-void	pipex2(t_cmd *cmd)
+static void	pipex2(t_cmd *cmd)
 {
 	int	pid;
 
@@ -73,4 +49,28 @@ void	pipex2(t_cmd *cmd)
 		ft_error(CMD_NOT_FOUND, cmd->args[0]);
 	}
 	waitpid(pid, NULL, 0);
+}
+
+void	pipex_manager(int fd2, int ac, char **av, char **envp)
+{
+	int		i;
+	t_cmd	*cmd_list;
+	t_cmd	*tmp;
+
+	i = 2;
+	cmd_list = ft_initialise_cmd(envp);
+	while (i < ac - 1)
+	{
+		ft_add_cmd(cmd_list, av[i]);
+		i++;
+	}
+	tmp = cmd_list;
+	while (tmp->next != NULL)
+	{
+		pipex1(tmp);
+		tmp = tmp->next;
+	}
+	dup2(fd2, STDOUT_FILENO);
+	pipex2(tmp);
+	ft_free_cmd(cmd_list);
 }

@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 03:00:27 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 12:10:56 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,29 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 	tmp->envp = cmd_list->envp;
 }
 
-char	*ft_get_path(char *cmd, char **envp)
+static char	*ft_get_path(char *cmd, char **envp)
 {
+	char	*PATH_envp;
+	char	**mypaths;
+	int		i;
+	char	*ret;
+	char	*cmd_to_test;
 
+	PATH_envp = ft_strnstr(envp, "PATH", ft_strlen("PATH"));
+	mypaths = ft_split(PATH_envp, ':');
+	i = 1;
+	free(PATH_envp);
+	ret = NULL;
+	while (mypaths[i])
+	{
+		cmd_to_test = ft_strjoin("/", cmd);
+		ret = ft_strjoin(mypaths[i], cmd_to_test);
+		free(cmd_to_test);
+		if (!access(ret, X_OK))
+			break;
+		free(ret);
+		ret = NULL;
+		i++;
+	}
+	return (ret);
 }
