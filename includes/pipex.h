@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 11:09:22 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 12:39:44 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define CMD_DOESNT_EXIST 3
 # define CAN_NOT_CREATE_OUTFILE 4
 # define CMD_NOT_FOUND 5
+# define CMD_NOT_EXECUTED 1
 # define FORK_FAILED 6
 # define PIPE_FAILED 7
 # define MALLOC_FAILLED 8

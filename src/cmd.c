@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 12:10:56 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 12:20:25 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 	}
 	tmp->args = ft_split(cmd, ' ');
 	tmp->path = ft_get_path(tmp->args[0], cmd_list->envp);
+	if (!tmp->path)
+		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
 	tmp->next = NULL;
 	tmp->envp = cmd_list->envp;
 }

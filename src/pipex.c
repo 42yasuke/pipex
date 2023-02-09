@@ -6,13 +6,13 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:39:29 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 11:01:50 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/09 12:43:10 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	pipex1(t_cmd *cmd)
+static void	pipex1(t_cmd *cmd, t_cmd *cmd_list)
 {
 	int	pipefd[2];
 	int	pid;
@@ -28,7 +28,7 @@ static void	pipex1(t_cmd *cmd)
 		dup2(pipfd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error(CMD_NOT_FOUND, cmd->args[0]);
+		ft_error2(CMD_NOT_EXCUTED, cmd_list);
 	}
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
@@ -36,7 +36,7 @@ static void	pipex1(t_cmd *cmd)
 	waitpid(pid, NULL, 0);
 }
 
-static void	pipex2(t_cmd *cmd)
+static void	pipex2(t_cmd *cmd, t_cmd *cmd_list)
 {
 	int	pid;
 
@@ -46,7 +46,7 @@ static void	pipex2(t_cmd *cmd)
 	if (!pid)
 	{
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error(CMD_NOT_FOUND, cmd->args[0]);
+		ft_error2(CMD_NOT_EXCUTED, cmd_list, cmd_list);
 	}
 	waitpid(pid, NULL, 0);
 }
@@ -67,10 +67,10 @@ void	pipex_manager(int fd2, int ac, char **av, char **envp)
 	tmp = cmd_list;
 	while (tmp->next != NULL)
 	{
-		pipex1(tmp);
+		pipex1(tmp, cmd_list);
 		tmp = tmp->next;
 	}
 	dup2(fd2, STDOUT_FILENO);
-	pipex2(tmp);
+	pipex2(tmp, cmd_list);
 	ft_free_cmd(cmd_list);
 }
