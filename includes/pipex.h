@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 14:38:01 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/10 14:48:46 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ void	ft_free_cmd(t_cmd *cmd_list);
 
 /*	pipex.c	*/
 void	pipex_manager(int fd2, int ac, char **av, char **envp);
+
+/*	here_doc_bonus.c	*/
+void	ft_here_doc_manager(int *fd1, int *fd2, int ac, char **av);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jose <jose@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/02/09 14:00:25 by jose             ###   ########.fr        #
+#    Updated: 2023/02/10 15:06:05 by jose             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ CFLAGS_OBJ = -Wall -Wextra -Werror -c -g
 
 RM = rm -f
 
-C_FILES =	main.c \
-			error.c \
+C_FILES =	error.c \
 			free.c \
 			cmd.c \
 			pipex.c
@@ -42,12 +41,17 @@ libft.a :
 %.o : %.c
 			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
 
-$(NAME) : libft.a $(OBJ)
-			$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIB)
+src/main.o : src/main.c
+			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
 
+$(NAME) : libft.a $(OBJ) src/main.o
+			$(CC) $(CFLAGS) $(OBJ) src/main.o -o $@ $(LIB)
+
+bonus : libft.a $(OBJ) src/main_bonus.o src/here_doc_bonus.o
+			$(CC) $(CFLAGS) $(OBJ) src/here_doc_bonus.o src/main_bonus.o -o $(NAME) $(LIB)
 clean :
 		make clean -C libft
-		$(RM) $(OBJ)
+		$(RM) src/*.o
 
 fclean : clean
 		$(RM) $(NAME) libft.a

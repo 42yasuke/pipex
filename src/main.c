@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:15:55 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 16:36:47 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/10 14:23:24 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **envp)
 	fd1 = open(av[1], O_RDONLY, 0444);
 	fd2 = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC | O_EXCL, 0644);
 	if (fd2 == -1)
-		fd2 = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0244);
+		fd2 = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0000);
 	if (fd1 == -1)
 		ft_error(FILE_CANT_BE_READ, av[1]);
 	if (fd2 == -1)

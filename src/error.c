@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:20:02 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 15:26:00 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/10 14:33:17 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_error(int err, char *err_msg)
 	if (err == BAD_PARAMETERS)
 		ft_printf("BAD PARAMETERS\n");
 	if (err == FILE_CANT_BE_READ)
-		ft_printf("%s can't be read: %s\n", err_msg, strerror(errno));
+		ft_printf("%s: %s\n", err_msg, strerror(errno));
 	if (err == CMD_DOESNT_EXIST)
 		ft_printf("%s: %s\n", err_msg, strerror(errno));
 	if (err == CAN_NOT_CREATE_OUTFILE)
