@@ -6,15 +6,15 @@
 #    By: jose <jose@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/02/10 15:06:05 by jose             ###   ########.fr        #
+#    Updated: 2023/02/14 17:44:09 by jose             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS_OBJ = -Wall -Wextra -Werror -c -g
+CFLAGS_OBJ = -Wall -Wextra -Werror -c
 
 RM = rm -f
 
