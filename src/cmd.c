@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/02/17 20:50:29 by jralph           ###   ########.fr       */
+/*   Updated: 2023/02/17 21:22:22 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ft_get_path2(char **envp)
 	int	i;
 
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH", ft_strlen("PATH")))
+	while (envp[i] && ft_strncmp(envp[i], "PATH", ft_strlen("PATH")))
 		i++;
 	return (envp[i]);
 }
@@ -31,6 +31,8 @@ static char	*ft_get_path(char *cmd, char **envp)
 	char	*cmd_to_test;
 
 	path_envp = ft_get_path2(envp);
+	if (!path_envp)
+		return (NULL);
 	mypaths = ft_split(path_envp, ':');
 	i = 1;
 	ret = NULL;
