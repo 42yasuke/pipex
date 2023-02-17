@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:01:51 by jose              #+#    #+#             */
-/*   Updated: 2023/02/10 15:34:17 by jose             ###   ########.fr       */
+/*   Updated: 2023/02/17 19:50:31 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_here_doc(char *limiter)
 	}
 	if (!line)
 		(close(fd_ret), fd_ret = -1);
-	free(line);
+	(get_next_line(-10), free(line));
 	return (fd_ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:10:16 by jralph            #+#    #+#             */
-/*   Updated: 2023/01/20 14:50:10 by jralph           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:41:54 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 
 	lines = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (free(stash), NULL);
 	ft_loop(&stash, fd);
 	if (ft_strchr(stash, '\n'))
 	{
