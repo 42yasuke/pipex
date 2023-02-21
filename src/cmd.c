@@ -34,18 +34,19 @@ static char	*ft_get_path(char *cmd, char **envp)
 	if (!path_envp)
 		return (NULL);
 	mypaths = ft_split(path_envp, ':');
-	i = 1;
-	ret = NULL;
-	while (mypaths[i])
+	i = 0;
+	ret = cmd;
+	while (mypaths[++i])
 	{
+		if (!access(ret, X_OK))
+			break ;
 		cmd_to_test = ft_strjoin("/", cmd);
 		ret = ft_strjoin(mypaths[i], cmd_to_test);
-		free(cmd_to_test);
 		if (!access(ret, X_OK))
 			break ;
 		free(ret);
 		ret = NULL;
-		i++;
+		free(cmd_to_test);
 	}
 	return (ft_free_all(mypaths), ret);
 }
