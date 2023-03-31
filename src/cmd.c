@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/02/17 21:22:22 by jralph           ###   ########.fr       */
+/*   Updated: 2023/03/31 16:18:21 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,18 @@ static char	*ft_get_path(char *cmd, char **envp)
 	mypaths = ft_split(path_envp, ':');
 	i = 0;
 	ret = cmd;
+	if (!access(ret, X_OK))
+		return (ft_free_all(mypaths), ret);
+	cmd_to_test = ft_strjoin("/", cmd);
 	while (mypaths[++i])
 	{
-		if (!access(ret, X_OK))
-			break ;
-		cmd_to_test = ft_strjoin("/", cmd);
 		ret = ft_strjoin(mypaths[i], cmd_to_test);
 		if (!access(ret, X_OK))
 			break ;
 		free(ret);
 		ret = NULL;
-		free(cmd_to_test);
 	}
-	return (ft_free_all(mypaths), ret);
+	return (free(cmd_to_test), ft_free_all(mypaths), ret);
 }
 
 t_cmd	*ft_initialise_cmd(char **envp)
@@ -62,6 +61,7 @@ t_cmd	*ft_initialise_cmd(char **envp)
 	cmd_list->path = NULL;
 	cmd_list->next = NULL;
 	cmd_list->envp = envp;
+	cmd_list->pid = -1;
 	return (cmd_list);
 }
 
@@ -88,4 +88,5 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
 	tmp->next = NULL;
 	tmp->envp = cmd_list->envp;
+	tmp->pid = -1;
 }

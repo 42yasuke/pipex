@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/17 21:27:56 by jralph           ###   ########.fr       */
+/*   Updated: 2023/03/31 15:59:11 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <sys/wait.h>
 # include <string.h>
+# include <stdbool.h>
 
 # include "../libft/libft.h"
 
@@ -39,6 +40,7 @@ typedef struct s_cmd
 	char			**args;
 	char			**envp;
 	struct s_cmd	*next;
+	int				pid;
 }	t_cmd;
 
 /*	error.c	*/
@@ -55,6 +57,7 @@ void	ft_free_cmd(t_cmd *cmd_list);
 
 /*	pipex.c	*/
 void	pipex_manager(int fd2, int ac, char **av, char **envp);
+void	pipex1(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int fd2);
 
 /*	here_doc_bonus.c	*/
 void	ft_here_doc_manager(int *fd1, int *fd2, int ac, char **av);
