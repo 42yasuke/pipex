@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/03/31 16:18:21 by jralph           ###   ########.fr       */
+/*   Updated: 2023/03/31 16:59:43 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 		tmp = tmp->next;
 	}
 	tmp->args = ft_split(cmd, ' ');
-	tmp->path = ft_get_path(tmp->args[0], cmd_list->envp);
-	if (!tmp->path)
-		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
 	tmp->next = NULL;
 	tmp->envp = cmd_list->envp;
 	tmp->pid = -1;
+	tmp->path = ft_get_path(tmp->args[0], cmd_list->envp);
+	if (!tmp->path)
+		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
 }
