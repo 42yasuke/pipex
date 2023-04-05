@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 12:51:16 by jralph           ###   ########.fr       */
+/*   Updated: 2023/04/05 23:02:08 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 /*	error.c	*/
 void	ft_error(int err, char *infile, int *fd);
 void	ft_error2(int err, t_cmd *cmd_list, int *fd);
+void	ft_error3(int ac, char **av, int is_hd);
 
 /*	cmd.c	*/
 t_cmd	*ft_initialise_cmd(char **envp);

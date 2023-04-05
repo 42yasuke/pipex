@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:01:51 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 12:07:29 by jralph           ###   ########.fr       */
+/*   Updated: 2023/04/05 23:01:24 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	ft_here_doc_manager(int *fd, char *file_name, int ac, char **av)
 	if (!file_name)
 		return ;
 	fd[0] = ft_here_doc(av[2], file_name);
+	if (fd[0] == -1)
+		ft_error3(ac, av, true);
 	fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_APPEND | O_EXCL, 0644);
 	if (fd[1] == -1)
 		fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_APPEND, 0000);
-	if (fd[0] == -1)
-		ft_error(FILE_CANT_BE_READ, av[1], NULL);
 	if (fd[1] == -1)
 		ft_error(CAN_NOT_CREATE_OUTFILE, av[ac - 1], NULL);
 }
