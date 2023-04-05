@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/03/31 16:59:43 by jralph           ###   ########.fr       */
+/*   Updated: 2023/04/04 01:52:45 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*ft_get_path(char *cmd, char **envp)
 	mypaths = ft_split(path_envp, ':');
 	i = 0;
 	ret = cmd;
-	if (!access(ret, X_OK))
+	if (ret && !access(ret, X_OK))
 		return (ft_free_all(mypaths), ret);
 	cmd_to_test = ft_strjoin("/", cmd);
 	while (mypaths[++i])
@@ -56,16 +56,17 @@ t_cmd	*ft_initialise_cmd(char **envp)
 
 	cmd_list = malloc(sizeof(*cmd_list));
 	if (!cmd_list)
-		ft_error(MALLOC_FAILLED, "malloc failed");
+		ft_error(MALLOC_FAILLED, "malloc failed", NULL);
 	cmd_list->args = NULL;
 	cmd_list->path = NULL;
 	cmd_list->next = NULL;
 	cmd_list->envp = envp;
 	cmd_list->pid = -1;
+	cmd_list->pipe_fd = NULL;
 	return (cmd_list);
 }
 
-void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
+void	ft_add_cmd(t_cmd *cmd_list, char *cmd, int *fd)
 {
 	t_cmd	*tmp;
 
@@ -78,15 +79,16 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd)
 		if (!tmp)
 		{
 			ft_free_cmd(cmd_list);
-			ft_error(MALLOC_FAILLED, "malloc failed");
+			ft_error(MALLOC_FAILLED, "malloc failed", fd);
 		}
 		tmp = tmp->next;
 	}
 	tmp->args = ft_split(cmd, ' ');
 	tmp->next = NULL;
 	tmp->envp = cmd_list->envp;
+	tmp->pipe_fd = NULL;
 	tmp->pid = -1;
 	tmp->path = ft_get_path(tmp->args[0], cmd_list->envp);
 	if (!tmp->path)
-		(ft_free_cmd(cmd_list), ft_error(CMD_NOT_FOUND, cmd));
+		tmp->path = cmd;
 }

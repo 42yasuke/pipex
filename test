@@ -17,14 +17,18 @@ env -i ./pipex infile cat errvjoi outfile
 ./pipex nofile cat "wc -l" outfile
 ./pipex nofile saDAS "wc -l" outfile
 
-
-
-
+#echo $PATH
 #unset PATH
 #/usr/bin/valgrind
 
 ./pipex infile /bin/cat "/bin/wc -w" outfile
 ./pipex infile /bin/qwef "/bin/wc -w" outfile
+
+./pipex /dev/stdin yes head /dev/stdout
+./pipex /dev/stdin cat ls /dev/stdout
+
+./pipex /dev/stdin "" ls /dev/stdout
+./pipex /dev/stdin cat 0 /dev/stdout
 
 export PATH=/mnt/nfs/homes/amahla/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
@@ -36,3 +40,31 @@ export PATH=/mnt/nfs/homes/amahla/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/
 
 ./pipex here_doc LOL cat cat cat cat cat cat cat cat cat outfile
 ./pipex here_doc LOL cat cat cat ewgw cat cat cat cat cat outfile
+
+./pipex here_doc ttt yes head /dev/stdout
+>tttttttttttttttt
+>tttjfldkjflk
+>jdflkgjdlkjttt
+>ttt
+
+./pipex here_doc ttt yes head /dev/stdout
+>ttt(Ctrl+D)
+
+./pipex here_doc ttt yes head /dev/stdout
+>(Ctrl+D)
+
+./pipex here_doc ttt yes head /dev/stdout
+>tttttttttttttttt
+>tttjfldkjflk
+>jdflkgjdlkjttt
+>sa va peter
+>(Ctrl+D)
+
+touch .here_doc
+./pipex here_doc ttt yes head /dev/stdout
+>tttttttttttttttt
+>tttjfldkjflk
+>jdflkgjdlkjttt
+>ttt
+
+pipex-tester https://github.com/denisgodoy/pipex-tester

@@ -6,7 +6,7 @@
 /*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/03/31 15:59:11 by jralph           ###   ########.fr       */
+/*   Updated: 2023/04/05 12:51:16 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define FORK_FAILED 6
 # define PIPE_FAILED 7
 # define MALLOC_FAILLED 8
+# define EXIT_BAD_CMD 127
 
 typedef struct s_cmd
 {
@@ -41,25 +42,25 @@ typedef struct s_cmd
 	char			**envp;
 	struct s_cmd	*next;
 	int				pid;
+	int				*pipe_fd;
 }	t_cmd;
 
 /*	error.c	*/
-void	ft_error(int err, char *infile);
-void	ft_error2(int err, t_cmd *cmd, t_cmd *cmd_list);
+void	ft_error(int err, char *infile, int *fd);
+void	ft_error2(int err, t_cmd *cmd_list, int *fd);
 
 /*	cmd.c	*/
 t_cmd	*ft_initialise_cmd(char **envp);
-void	ft_add_cmd(t_cmd *cmd_list, char *cmd);
+void	ft_add_cmd(t_cmd *cmd_list, char *cmd, int *fd);
 
 /*	free.c	*/
 void	ft_free_all(char **str);
 void	ft_free_cmd(t_cmd *cmd_list);
 
 /*	pipex.c	*/
-void	pipex_manager(int fd2, int ac, char **av, char **envp);
-void	pipex1(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int fd2);
+int		pipex_manager(int *fd, int ac, char **av, char **envp);
 
 /*	here_doc_bonus.c	*/
-void	ft_here_doc_manager(int *fd1, int *fd2, int ac, char **av);
+void	ft_here_doc_manager(int *fd, char *file_name, int ac, char **av);
 
 #endif

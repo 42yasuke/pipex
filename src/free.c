@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:39:59 by jose              #+#    #+#             */
-/*   Updated: 2023/02/09 14:34:27 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/04 02:04:32 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	ft_free_cmd(t_cmd *cmd_list)
 	{
 		cmd_list = tmp;
 		ft_free_all(tmp->args);
-		free(tmp->path);
+		if (!access(tmp->path, X_OK))
+			free(tmp->path);
+		free(tmp->pipe_fd);
 		tmp = tmp->next;
 		free(cmd_list);
 	}
