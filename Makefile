@@ -6,7 +6,7 @@
 #    By: jralph <jralph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/03/31 21:47:42 by jralph           ###   ########.fr        #
+#    Updated: 2023/04/05 13:23:43 by jralph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,17 +44,26 @@ libft.a :
 src/main.o : src/main.c
 			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
 
-$(NAME) : libft.a $(OBJ) src/main.o
+.mandatory : libft.a $(OBJ) src/main.o
 			$(CC) $(CFLAGS) $(OBJ) src/main.o -o $@ $(LIB)
+			touch $@
+			$(RM) .bonus
 
-bonus : libft.a $(OBJ) src/main_bonus.o src/here_doc_bonus.o
+$(NAME) : .mandatory
+
+.bonus : libft.a $(OBJ) src/main_bonus.o src/here_doc_bonus.o
 			$(CC) $(CFLAGS) $(OBJ) src/here_doc_bonus.o src/main_bonus.o -o $(NAME) $(LIB)
+			touch $@
+			$(RM) .mandatory
+
+bonus : .bonus
+
 clean :
 		make clean -C libft
 		$(RM) src/*.o
 
 fclean : clean
-		$(RM) $(NAME) libft.a
+		$(RM) $(NAME) libft.a .mandatory .bonus
 
 re : fclean all
 
