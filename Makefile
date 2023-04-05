@@ -6,7 +6,7 @@
 #    By: jralph <jralph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/04/05 13:23:43 by jralph           ###   ########.fr        #
+#    Updated: 2023/04/05 15:31:50 by jralph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ src/main.o : src/main.c
 			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
 
 .mandatory : libft.a $(OBJ) src/main.o
-			$(CC) $(CFLAGS) $(OBJ) src/main.o -o $@ $(LIB)
+			$(CC) $(CFLAGS) $(OBJ) src/main.o -o $(NAME) $(LIB)
 			touch $@
 			$(RM) .bonus
 
