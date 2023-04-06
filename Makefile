@@ -6,15 +6,15 @@
 #    By: jralph <jralph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/04/05 15:31:50 by jralph           ###   ########.fr        #
+#    Updated: 2023/04/06 21:29:46 by jralph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS_OBJ = -Wall -Wextra -Werror -c -g
+CFLAGS_OBJ = -Wall -Wextra -Werror -c
 
 RM = rm -f
 
@@ -39,10 +39,10 @@ libft.a :
 			make bonus -C libft
 
 %.o : %.c
-			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
+			$(CC) $(CFLAGS_OBJ) $< -o $@ $(INC)
 
 src/main.o : src/main.c
-			$(CC) $(CFLAGS_OBJ) $< -o $@ $(LIB) $(INC)
+			$(CC) $(CFLAGS_OBJ) $< -o $@ $(INC)
 
 .mandatory : libft.a $(OBJ) src/main.o
 			$(CC) $(CFLAGS) $(OBJ) src/main.o -o $(NAME) $(LIB)

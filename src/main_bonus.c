@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:02:24 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 23:03:16 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/06 21:32:59 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **envp)
 	char	*file_name;
 	int		ret_exit;
 
-	if (ac < 6)
+	if (ac < 5)
 		ft_error(BAD_PARAMETERS, NULL, NULL);
 	if (!ft_strncmp(av[1], "here_doc", ft_strlen("here_doc")))
 	{
