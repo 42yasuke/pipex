@@ -3,25 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jralph <jralph@student.42.fr>              +#+  +:+       +#+         #
+#    By: jose <jose@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 17:53:47 by jose              #+#    #+#              #
-#    Updated: 2023/04/06 21:29:46 by jralph           ###   ########.fr        #
+#    Updated: 2023/04/09 02:51:12 by jose             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
-CFLAGS_OBJ = -Wall -Wextra -Werror -c
+CFLAGS_OBJ = -Wall -Wextra -Werror -c -g
 
 RM = rm -f
 
 C_FILES =	error.c \
 			free.c \
 			cmd.c \
-			pipex.c
+			pipex.c \
+			pipex_utils.c \
+			pipex2.c
 
 SRC = $(addprefix src/, $(C_FILES))
 

@@ -6,13 +6,13 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:20:02 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 23:03:00 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/09 02:58:29 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(int err, char *err_msg, int *fd)
+int	ft_error(int err, char *err_msg, int *fd, int is_exit)
 {
 	if (err == BAD_PARAMETERS)
 		ft_printf("BAD PARAMETERS\n");
@@ -22,7 +22,7 @@ void	ft_error(int err, char *err_msg, int *fd)
 		ft_printf("%s: %s\n", err_msg, strerror(errno));
 	if (err == CMD_DOESNT_EXIST)
 		ft_printf("%s: %s\n", err_msg, strerror(errno));
-	if (err == CAN_NOT_CREATE_OUTFILE)
+	if (err == CANT_CREATE_OUTFILE)
 		ft_printf("%s: %s\n", err_msg, strerror(errno));
 	if (err == CMD_NOT_FOUND)
 		ft_printf("%s: %s\n", err_msg, strerror(errno));
@@ -34,27 +34,43 @@ void	ft_error(int err, char *err_msg, int *fd)
 		ft_printf("%s : %s\n", err_msg, strerror(errno));
 	if (fd)
 		(close(fd[0]), close(fd[1]));
-	exit(EXIT_FAILURE);
+	if (is_exit)
+		exit(EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
-void	ft_error2(int err, t_cmd *cmd_list, int *fd)
+static void	ft_strerr(t_cmd *cmd)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = NULL;
-	if (err == CMD_NOT_EXECUTED)
-	{
-		tmp = ft_strjoin(strerror(errno), "\n");
-		write(STDERR_FILENO, tmp, ft_strlen(tmp));
-		free(tmp);
-		ft_free_cmd(cmd_list);
-	}
+	tmp = ft_strjoin(cmd->args[0], ": ");
+	tmp2 = tmp;
+	tmp = ft_strjoin(tmp, strerror(errno));
+	free(tmp2);
+	tmp2 = tmp;
+	tmp = ft_strjoin(tmp, "\n");
+	free(tmp2);
+	(write(STDERR_FILENO, tmp, ft_strlen(tmp)), free(tmp));
+}
+
+void	ft_error2(int err, t_cmd *cmd, t_cmd *cmd_list, int *fd)
+{
+	(void)err;
+	ft_strerr(cmd);
+	ft_free_cmd(cmd_list);
 	if (fd)
-		(close(fd[0]), close(fd[1]));
+	{
+		if (fd[0] != -1)
+			close(fd[0]);
+		if (fd[1] != -1)
+			close(fd[1]);
+	}
 	exit(EXIT_BAD_CMD);
 }
 
-void	ft_error3(int ac, char **av, int is_hd)
+int	ft_error3(int ac, char **av, int is_hd)
 {
 	int	fd2;
 
@@ -69,7 +85,7 @@ void	ft_error3(int ac, char **av, int is_hd)
 		if (!is_hd)
 			close(fd2);
 		if (!access(av[1], F_OK))
-			exit(EXIT_SUCCESS);
+			return (EXIT_SUCCESS);
 	}
-	exit(EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

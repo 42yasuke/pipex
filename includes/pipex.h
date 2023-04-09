@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 23:02:08 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/09 03:04:38 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define BAD_PARAMETERS 1
 # define FILE_CANT_BE_READ 2
 # define CMD_DOESNT_EXIST 3
-# define CAN_NOT_CREATE_OUTFILE 4
+# define CANT_CREATE_OUTFILE 4
 # define CMD_NOT_FOUND 5
 # define CMD_NOT_EXECUTED 1
 # define FORK_FAILED 6
@@ -46,9 +46,9 @@ typedef struct s_cmd
 }	t_cmd;
 
 /*	error.c	*/
-void	ft_error(int err, char *infile, int *fd);
-void	ft_error2(int err, t_cmd *cmd_list, int *fd);
-void	ft_error3(int ac, char **av, int is_hd);
+int		ft_error(int err, char *infile, int *fd, int is_exit);
+void	ft_error2(int err, t_cmd *cmd, t_cmd *cmd_list, int *fd);
+int		ft_error3(int ac, char **av, int is_hd);
 
 /*	cmd.c	*/
 t_cmd	*ft_initialise_cmd(char **envp);
@@ -61,7 +61,15 @@ void	ft_free_cmd(t_cmd *cmd_list);
 /*	pipex.c	*/
 int		pipex_manager(int *fd, int ac, char **av, char **envp);
 
+/*	pipex_utils.c	*/
+void	ft_help_pipex1(int *fd, int *pipefd, t_cmd *cmd_list);
+void	ft_help_pipex12(int *fd, int *pipefd, t_cmd *cmd_list);
+void	pipex1_suite(t_cmd *cmd, t_cmd *cmd_list, int *fd);
+
+/*	pipex2.c	*/
+int		pipex_manager_b(int *fd, int ac, char **av, char **envp);
+
 /*	here_doc_bonus.c	*/
-void	ft_here_doc_manager(int *fd, char *file_name, int ac, char **av);
+int		ft_here_doc_manager(int *fd, char *file_name, int ac, char **av);
 
 #endif

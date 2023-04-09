@@ -67,4 +67,9 @@ touch .here_doc
 >jdflkgjdlkjttt
 >ttt
 
+tester les messages derreur en combinant et mauvaises commande et mauvais droits sur in et out
+./pipex here_doc kkk cat ls outfile
+
+./pipex in ct ct ct out
+
 pipex-tester https://github.com/denisgodoy/pipex-tester

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:15:19 by jose              #+#    #+#             */
-/*   Updated: 2023/04/04 01:52:45 by jralph           ###   ########.fr       */
+/*   Updated: 2023/04/08 01:27:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_cmd	*ft_initialise_cmd(char **envp)
 
 	cmd_list = malloc(sizeof(*cmd_list));
 	if (!cmd_list)
-		ft_error(MALLOC_FAILLED, "malloc failed", NULL);
+		ft_error(MALLOC_FAILLED, "malloc failed", NULL, true);
 	cmd_list->args = NULL;
 	cmd_list->path = NULL;
 	cmd_list->next = NULL;
@@ -79,7 +79,7 @@ void	ft_add_cmd(t_cmd *cmd_list, char *cmd, int *fd)
 		if (!tmp)
 		{
 			ft_free_cmd(cmd_list);
-			ft_error(MALLOC_FAILLED, "malloc failed", fd);
+			ft_error(MALLOC_FAILLED, "malloc failed", fd, true);
 		}
 		tmp = tmp->next;
 	}

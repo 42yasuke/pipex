@@ -6,7 +6,7 @@
 /*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:39:29 by jose              #+#    #+#             */
-/*   Updated: 2023/04/05 22:22:11 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/09 02:49:51 by jose             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,22 @@ static int	*pipex1(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int *fd)
 
 	pipefd = malloc(sizeof(*pipefd) * 2);
 	if (pipe(pipefd))
-		ft_error(PIPE_FAILED, "pipe failed", fd);
+		ft_error(PIPE_FAILED, "pipe failed", fd, true);
 	cmd->pipe_fd = pipefd;
 	pid = fork();
 	if (pid == -1)
-		ft_error(FORK_FAILED, "fork failed", fd);
+		ft_error(FORK_FAILED, "fork failed", fd, true);
 	if (!pid)
 	{
 		if (!pfd)
-			(dup2(fd[0], STDIN_FILENO), close(fd[0]));
+			ft_help_pipex1(fd, pipefd, cmd_list);
 		else
 			(close(pfd[1]), dup2(pfd[0], STDIN_FILENO), close(pfd[0]));
 		(close(pipefd[0]), dup2(pipefd[1], STDOUT_FILENO), close(pipefd[1]));
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error2(CMD_NOT_EXECUTED, cmd_list, fd);
+		ft_error2(CMD_NOT_EXECUTED, cmd, cmd_list, fd);
 	}
-	cmd->pid = pid;
-	return (pipefd);
+	return (cmd->pid = pid, pipefd);
 }
 
 static void	pipex2(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int *fd)
@@ -44,13 +43,16 @@ static void	pipex2(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int *fd)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error(FORK_FAILED, "fork failed", fd);
+		ft_error(FORK_FAILED, "fork failed", fd, true);
 	if (!pid)
 	{
 		(close(pfd[1]), dup2(pfd[0], STDIN_FILENO), close(pfd[0]));
-		(dup2(fd[1], STDOUT_FILENO), close(fd[1]));
+		if (fd[1] != -1)
+			(dup2(fd[1], STDOUT_FILENO), close(fd[1]));
+		else
+			(ft_free_cmd(cmd_list), exit(EXIT_SUCCESS));
 		execve(cmd->path, cmd->args, cmd->envp);
-		ft_error2(CMD_NOT_EXECUTED, cmd_list, fd);
+		ft_error2(CMD_NOT_EXECUTED, cmd, cmd_list, fd);
 	}
 	cmd->pid = pid;
 	cmd->pipe_fd = NULL;
