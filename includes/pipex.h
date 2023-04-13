@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose <jose@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jralph <jralph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:12:59 by jose              #+#    #+#             */
-/*   Updated: 2023/04/09 03:04:38 by jose             ###   ########.fr       */
+/*   Updated: 2023/04/13 21:24:18 by jralph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		pipex_manager(int *fd, int ac, char **av, char **envp);
 void	ft_help_pipex1(int *fd, int *pipefd, t_cmd *cmd_list);
 void	ft_help_pipex12(int *fd, int *pipefd, t_cmd *cmd_list);
 void	pipex1_suite(t_cmd *cmd, t_cmd *cmd_list, int *fd);
+void	pipex1_else(int *pfd, int *fd);
 
 /*	pipex2.c	*/
 int		pipex_manager_b(int *fd, int ac, char **av, char **envp);

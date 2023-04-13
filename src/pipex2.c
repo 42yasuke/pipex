@@ -26,10 +26,12 @@ static int	*pipex1(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int *fd)
 		ft_error(FORK_FAILED, "fork failed", fd, true);
 	if (!pid)
 	{
+		if (fd[1] != -1)
+			close(fd[1]);
 		if (!pfd)
 			ft_help_pipex12(fd, pipefd, cmd_list);
 		else
-			(close(pfd[1]), dup2(pfd[0], STDIN_FILENO), close(pfd[0]));
+			pipex1_else(pfd, fd);
 		(close(pipefd[0]), dup2(pipefd[1], STDOUT_FILENO), close(pipefd[1]));
 		pipex1_suite(cmd, cmd_list, fd);
 	}
@@ -46,6 +48,8 @@ static void	pipex2(t_cmd *cmd, t_cmd *cmd_list, int *pfd, int *fd)
 		ft_error(FORK_FAILED, "fork failed", fd, true);
 	if (!pid)
 	{
+		if (fd[0] != -1)
+			close(fd[0]);
 		(close(pfd[1]), dup2(pfd[0], STDIN_FILENO), close(pfd[0]));
 		if (fd[1] != -1)
 			(dup2(fd[1], STDOUT_FILENO), close(fd[1]));
